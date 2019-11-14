@@ -5,3 +5,5 @@ obj/*
 *.json
 icon/*
 screenshots/*
+*.md
+LICENSE
