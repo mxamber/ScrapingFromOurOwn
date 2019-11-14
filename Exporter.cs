@@ -14,13 +14,16 @@ namespace ScrapingFromOurOwn
 			return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 		}
 		
-		public static String addColumn(String input, String label, String value) {
+		public static String addColumn(String input, String label, String value, String value2 = "") {
 			if(String.IsNullOrEmpty(input.Trim()) == false) {
 				input += Environment.NewLine;
 			}
 			input += label;
-			input += "\t\t";
-			input += value;
+			input += "\t\t" + value;
+			
+			if(String.IsNullOrEmpty(value2) == false) {
+			   	input += "\t\t" + value2;
+			}
 			
 			return input;
 		}
@@ -28,6 +31,10 @@ namespace ScrapingFromOurOwn
 		// optional two-parameter variant
 		public static String addColumn(String label, String value) {
 			return addColumn("", label, value);
+		}
+		
+		public static String addColumn(String label, String value, String value2) {
+			return addColumn("", label, value, value2);
 		}
 		
 		
@@ -38,7 +45,7 @@ namespace ScrapingFromOurOwn
 				writer.Write(content);
 				writer.Close();
 			} catch (Exception e) {
-				Console.WriteLine("Execution failed: {0}", e.ToString());
+				Console.WriteLine("Execution failed. Invalid file name?\n\n{0}", e.ToString());
 			}
 			
 		}
