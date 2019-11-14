@@ -3,6 +3,14 @@ Inofficial AO3 scraper / API formerly part of and now requirement for [mxamber/A
 
 # Overview
 
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+  * [ScrapingFromOurOwn.FandomQuery](#scrapingfromourownfandomquery)
+  * [ScrapingFromOurOwn.UrlGenerator](#scrapingfromourownurlgenerator)
+  * [ScrapingFromOurOwn.WorkQuery](#scrapingfromourownworkquery)
+  * [ScrapingFromOurOwn.Work](#scrapingfromourownwork)
+
+
 ## ScrapingFromOurOwn.FandomQuery
 
 This class searches AO3 for works matching the specified search parameters and stores the amount of results found (**not** the actual works!)
