@@ -12,9 +12,12 @@ namespace ScrapingFromOurOwn
 		public String custom = "";
 		public int results = 0;
 		
-		public FandomQuery(String tag)
+		public FandomQuery(String tag, int minimum = -1, int maximum = -1, String custom = "")
 		{
 			this.tag = tag;
+			this.minimum = minimum;
+			this.maximum = maximum;
+			this.custom = custom;
 		}
 		
 		public bool beginQuery() {

@@ -14,11 +14,11 @@ namespace ScrapingFromOurOwn
 			this.id = id;
 		}
 		
-		public static Regex regexNumericField(String name) {
+		static Regex regexNumericField(String name) {
 			return new Regex("<dd class=\"" + name + "\">(?'" + name + "'\\d*)");
 		}
 		
-		public static String matchProperty(Match match, String field) {
+		static String matchProperty(Match match, String field) {
 			return match.Groups[field].Success == true ? match.Groups[field].ToString().Trim() : "";
 		}
 		
