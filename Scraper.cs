@@ -4,13 +4,8 @@ using System.Net;
 
 namespace ScrapingFromOurOwn
 {
-	public class Scraper
-	{
-		public Scraper()
-		{
-			
-		}
-		
+	public static class Scraper
+	{		
 		public static String scrape(String url) {
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 			request.Method = "GET";

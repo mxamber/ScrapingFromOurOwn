@@ -2,17 +2,12 @@
 
 namespace ScrapingFromOurOwn
 {
-	public class UrlGenerator
+	public static class UrlGenerator
 	{
 		const String strbase_srch = "https://archiveofourown.org/works?work_search[sort_column]=revised_at";
 		const String str1_srch = "&work_search[words_from]=";
 		const String str2_srch = "&work_search[words_to]=";
-		const String str3_srch = "&tag_id=";
-		
-		public UrlGenerator() {
-			// empty			
-		}
-		
+		const String str3_srch = "&tag_id=";		
 		
 		public static String sanitiseChars(String input) {
 			input = input.Replace("&", "*a*");

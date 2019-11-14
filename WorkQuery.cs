@@ -6,9 +6,12 @@ namespace ScrapingFromOurOwn
 {
 	public class WorkQuery
 	{
-		public WorkQuery()
+		public int id;
+		public Work result;
+		
+		public WorkQuery(int id)
 		{
-			
+			this.id = id;
 		}
 		
 		public static Regex regexNumericField(String name) {
@@ -105,8 +108,11 @@ namespace ScrapingFromOurOwn
 			result.bookmarks = bookmarks;
 			result.hits = hits;
 			
-			
 			return result;
+		}
+		
+		public void beginQuery() {
+			this.result = beginQuery(this.id);			
 		}
 	}
 }
