@@ -15,9 +15,9 @@ Inofficial AO3 scraper / API formerly part of and now requirement for [mxamber/A
 
 This class searches AO3 for works matching the specified search parameters and stores the amount of results found (**not** the actual works!)
 
-### FandomQuery.FandomQuery(String tag, int minimum, int maximum)
+### FandomQuery.FandomQuery(String tag, int minimum, int maximum, String custom)
 
-Constructor. Creates a new FandomQuery instance with the **tag** property. Optional parameters: **minimum**, **maximum** and **custom**, allowing for specifying word count range and custom search paramterers.
+Constructor. Creates a new FandomQuery instance with the **tag** property. Optional parameters: **minimum**, **maximum** and **custom**, allowing for specifying word count range and custom search parameters.
 
 ### FandomQuery.beginQuery()
 
