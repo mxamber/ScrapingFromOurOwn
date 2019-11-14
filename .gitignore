@@ -1,0 +1,7 @@
+*.csproj*
+bin/*
+obj/*
+*.config
+*.json
+icon/*
+screenshots/*
