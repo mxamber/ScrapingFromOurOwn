@@ -37,7 +37,7 @@ Generates the various URLs used internally, such as search result and work URLs 
 
 ### UrlGenerator.sanitiseChars(String input)
 
-Replaces any `&` for `\*a\*`, as seen in AO3's search result URLs. Subject to further additions to ensure functioning search result URL generation.
+Replaces any `&` for `*a*`, as seen in AO3's search result URLs. Subject to further additions to ensure functioning search result URL generation.
 
 ### UrlGenerator.searchURL(String tag_name, String custom)
 
