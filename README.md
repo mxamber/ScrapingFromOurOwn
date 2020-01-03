@@ -19,7 +19,7 @@ This class searches AO3 for works matching the specified search parameters and s
 
 Constructor. Creates a new FandomQuery instance with the **tag** property. Optional parameters: **minimum**, **maximum** and **custom**, allowing for specifying word count range and custom search parameters.
 
-### FandomQuery.beginQuery()
+### FandomQuery.BeginQuery()
 
 Executes the search. Word count range and custom search parameters have to be set before calling this method, either via the constructor method or manually. Returns `true`or `false` to indicate whether the query was successful (`false` in case of 404, empty response, or failing to extract the number from the received HTML code).
 
@@ -35,33 +35,33 @@ Executes the search. Word count range and custom search parameters have to be se
 
 Generates the various URLs used internally, such as search result and work URLs for scraping. **All methods are static.**
 
-### UrlGenerator.sanitiseChars(String input)
+### UrlGenerator.SanitiseChars(String input)
 
-Replaces any `&` for `*a*`, as seen in AO3's search result URLs. Subject to further additions to ensure functioning search result URL generation.
+Replaces special characters to mirror AO3 doing the same for tags. Subject to further additions to ensure functioning search result URL generation.
 
-### UrlGenerator.searchURL(String tag_name, String custom)
+### UrlGenerator.SearchURL(String tag_name, String custom)
 
 Generates search results URL for all works in specified tag. Optional custom search parameters, default empty string. Returns string.
 
-### UrlGenerator.searchUrlMin(int min_words, String tag_name, String custom)
+### UrlGenerator.SearchUrlMin(int min_words, String tag_name, String custom)
 
-Same as **searchUrl**, with minimum word count set. No maximum word count set.
+Same as **SearchUrl**, with minimum word count set. No maximum word count set.
 
-### UrlGenerator.searchUrlMax(int max_words, String tag_name, String custom)
+### UrlGenerator.SearchUrlMax(int max_words, String tag_name, String custom)
 
-Same as **searchUrlMin** but with maximum word count. No minimum word count set.
+Same as **SearchUrlMin** but with maximum word count. No minimum word count set.
 
-### UrlGenerator.searchUrlMinMax
+### UrlGenerator.SearchUrlMinMax
 
-Bringing together **searchUrlMin** and **searchUrlMax**, result URL has word count between min and max set. Optional custom parameters.
+Bringing together **SearchUrlMin** and **SearchUrlMax**, result URL has word count between min and max set. Optional custom parameters.
 
-### UrlGenerator.workUrl(int workId, bool series)
+### UrlGenerator.WorkUrl(int workId, bool series)
 
 URL to a particular work or series. Returns string. Parameter series is default false, if set true, link to series will be generated instead.
 
-### UrlGenerator.workUrl(int workId, int chapterId)
+### UrlGenerator.WorkUrl(int workId, int chapterId)
 
-Overload for **workUrl**. Takes chapter ID in addition, omits series parameter.
+Overload for **WorkUrl**. Takes chapter ID in addition, omits series parameter.
 
 ## ScrapingFromOurOwn.WorkQuery
 
@@ -71,7 +71,7 @@ Similar to **FandomQuery**. Scrapes the work page of a particular fic and stores
 
 Constructor. Sets query's ID property.
 
-### WorkQuery.beginQuery(int id)
+### WorkQuery.BeginQuery(int id)
 
 Static method. Since no instance of **WorkQuery** is created, work ID is passed as parameter instead. Will throw a `System.ArgumentException` if work could not be found and return `ScrapingFromOurOwn.Work` instance otherwise. Currently retrieved work properties are:
 
@@ -85,17 +85,18 @@ Static method. Since no instance of **WorkQuery** is created, work ID is passed 
 * hits
 * publication date
 * update date
+* language
 
 All numeric values default to 0 if no value could be found (ex: no bookmarks yet). Default chapter amount is 1. Publication date defaults to Jan 1, 1970 if no date could be retrieved. Update date is = publication date if no update date could be retrieved (ex: only 1 chapter). If unforeseen errors occur, empty `Work` instance might be returned.
 
 ### WorkQuery.beginQuery()
 
-Non-static overload for **beginQuery()**. If `WorkQuery` instance was created, this method is available and uses internal ID created via constructor. Work result will not be returned and instead stored as `WorkQuery.result` property.
+Non-static overload for **BeginQuery()**. If `WorkQuery` instance was created, this method is available and uses internal ID created via constructor. Work result will not be returned and instead stored as `WorkQuery.result` property.
 
 ### Properties
 
 * **int id:** work ID if an instance of the class was created.
-* **ScrapingFromOurOwn.Work result:** found work if non-static **beginQuery()** was used.
+* **ScrapingFromOurOwn.Work result:** found work if non-static **BeginQuery()** was used.
 
 ## ScrapingFromOurOwn.Work
 
@@ -111,10 +112,11 @@ Used to store properties of retrieved works. Currently stores the following prop
 * hits
 * publication date
 * update date
+* language
 
 The following properties might be retreived and stored in the future:
 
-* language
+* ~~language~~ (added in 0.4.3)
 * fandom tags
 * character tags
 * relationship tags
