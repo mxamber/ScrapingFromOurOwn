@@ -6,7 +6,7 @@ namespace ScrapingFromOurOwn
 {
 	public static class Scraper
 	{		
-		public static String scrape(String url) {
+		public static String Scrape(String url) {
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 			request.Method = "GET";
 			WebResponse response = null;
@@ -18,8 +18,7 @@ namespace ScrapingFromOurOwn
 				reader.Close();
 				response.Close();
 				return code;
-			} catch(WebException exception) {
-//				Console.WriteLine(exception.ToString());
+			} catch {
 				return null;
 			}
 		}

@@ -8,6 +8,7 @@ namespace ScrapingFromOurOwn
 	{
 		public int id;
 		public Work result;
+		public bool entire_work = false;
 		
 		public WorkQuery(int id)
 		{
@@ -22,16 +23,23 @@ namespace ScrapingFromOurOwn
 			return match.Groups[field].Success == true ? match.Groups[field].ToString().Trim() : "";
 		}
 		
-		public static Work beginQuery(int id) {
-			String url = UrlGenerator.workUrl(id);
-			String raw = Scraper.scrape(url);
+		public static Work BeginQuery(int id, bool entire_work = false) {
+			String url = UrlGenerator.WorkUrl(id);
+			if(entire_work == true) {
+				url += "?view_full_work=true";
+			}
+			String raw = Scraper.Scrape(url);
 			
 			
 			if(String.IsNullOrEmpty(raw) == true) {
 				throw new System.ArgumentException("Work could not be found!", id.ToString());
 			}
 			
-			Work result = new Work();
+			Work result = new Work(raw);
+			
+			Regex text_regex = new Regex("<div[^>]*userstuff[^>]*>(?'text'.*?)(<\\/div>)");
+			
+			
 			
 			
 			Regex title_regex = new Regex("<h2 class=\"[^\"]*title[^\"]*\">(?'title'[^\\<]*)");
@@ -39,6 +47,7 @@ namespace ScrapingFromOurOwn
 			Regex publish_regex = new Regex("<dd class=\"published\">(?'publish'\\d\\d\\d\\d-\\d\\d-\\d\\d)");
 			Regex update_regex = new Regex("<dd class=\"status\">(?'update'\\d\\d\\d\\d-\\d\\d-\\d\\d)");
 			Regex bookmarks_regex = new Regex("<dd class=\"bookmarks\"><a[^>]*>(?'bookmarks'\\d*)");
+			Regex lang_regex = new Regex("<dd class=\"language\">(?'lang'[^<]*)");
 			
 			String title = "";
 			String author = "";
@@ -48,6 +57,7 @@ namespace ScrapingFromOurOwn
 			int kudos = 0;
 			int bookmarks = 0;
 			int hits = 0;
+			Language lang = Language.UNDEFINED;
 			
 			Match title_match = title_regex.Match(raw);
 			Match author_match = author_regex.Match(raw);
@@ -57,6 +67,20 @@ namespace ScrapingFromOurOwn
 			}
 			if(author_match.Groups["author"].Success == true) {
 				author = author_match.Groups["author"].ToString().Trim();
+			}
+			
+			Match lang_match = lang_regex.Match(raw);
+			if(lang_match.Groups["lang"].Success == true) {
+				String lang_str = lang_match.Groups["lang"].Value.Trim();
+				
+				for(int i = 0; i <= 109; i++) {
+					if(Enum.IsDefined(typeof(Language), i)) {
+						if(((Language)i).ToString().Replace("_", " ") == lang_str) {
+							lang = ((Language)i);
+							break;
+						}
+					}
+				}
 			}
 			
 			Match chapters_match = regexNumericField("chapters").Match(raw);
@@ -97,6 +121,7 @@ namespace ScrapingFromOurOwn
 				// the publish date will be used, since oneshots and fics with only 1 chapter yet don't have an update date
 				published = new DateTime(1970, 1, 1);
 			}
+			
 			result.updated = updated;
 			
 			result.title = title;
@@ -107,12 +132,13 @@ namespace ScrapingFromOurOwn
 			result.kudos = kudos;
 			result.bookmarks = bookmarks;
 			result.hits = hits;
+			result.language = lang;
 			
 			return result;
 		}
 		
-		public void beginQuery() {
-			this.result = beginQuery(this.id);			
+		public void BeginQuery() {
+			this.result = BeginQuery(this.id, this.entire_work);
 		}
 	}
 }

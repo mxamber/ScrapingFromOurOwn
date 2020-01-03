@@ -4,44 +4,48 @@ namespace ScrapingFromOurOwn
 {
 	public static class UrlGenerator
 	{
-		const String strbase_srch = "https://archiveofourown.org/works?work_search[sort_column]=revised_at";
-		const String str1_srch = "&work_search[words_from]=";
-		const String str2_srch = "&work_search[words_to]=";
-		const String str3_srch = "&tag_id=";		
+		const String search_base = "https://archiveofourown.org/works?work_search[sort_column]=revised_at";
+		const String search_min = "&work_search[words_from]=";
+		const String search_max = "&work_search[words_to]=";
+		const String search_tag = "&tag_id=";		
 		
-		public static String sanitiseChars(String input) {
+		public static String SanitiseChars(String input) {
+			// replace special characters to mirror the way AO3 does
+			// example: tag "Draco Malfoy/Harry Potter" is stored as "Draco Malfoy*s*Harry Potter"
+			// example: tag "Draco Malfoy & Harry Potter" is stored as "Draco Malfoy *a* Harry Potter"
 			input = input.Replace("&", "*a*");
+			input = input.Replace("/", "*s*");
 			return input;
 		}
 		
 		
-		public static String searchUrl(String tag_name, String custom = "") {
-			tag_name = sanitiseChars(tag_name);
-			return strbase_srch + str3_srch + tag_name + custom;
+		public static String SearchUrl(String tag_name, String custom = "") {
+			tag_name = SanitiseChars(tag_name);
+			return search_base + search_tag + tag_name + custom;
 		}
 		
-		public static String searchUrlMin(int min_words, String tag_name, String custom = "") {
-			tag_name = sanitiseChars(tag_name);
-			return strbase_srch + str1_srch + min_words + str3_srch + tag_name + custom;
+		public static String SearchUrlMin(int min_words, String tag_name, String custom = "") {
+			tag_name = SanitiseChars(tag_name);
+			return search_base + search_min + min_words + search_tag + tag_name + custom;
 		}
 		
-		public static String searchUrlMax(int max_words, String tag_name, String custom = "") {
-			tag_name = sanitiseChars(tag_name);
-			return strbase_srch + str2_srch + max_words + str3_srch + tag_name + custom;
+		public static String SearchUrlMax(int max_words, String tag_name, String custom = "") {
+			tag_name = SanitiseChars(tag_name);
+			return search_base + search_max + max_words + search_tag + tag_name + custom;
 		}
 		
-		public static String searchUrlMinMax(int min_words, int max_words, String tag_name, String custom = "") {
-			tag_name = sanitiseChars(tag_name);
-			return strbase_srch + str1_srch + min_words + str2_srch + max_words + str3_srch + tag_name + custom;
+		public static String SearchUrlMinMax(int min_words, int max_words, String tag_name, String custom = "") {
+			tag_name = SanitiseChars(tag_name);
+			return search_base + search_min + min_words + search_max + max_words + search_tag + tag_name + custom;
 		}
 		
 		
 		
-		public static String workUrl(int workId, int chapterId) {
+		public static String WorkUrl(int workId, int chapterId) {
 			return "https://archiveofourown.org/works/" + workId.ToString() + "/chapter/" + chapterId.ToString();
 		}
 		
-		public static String workUrl(int workId, bool series = false) {
+		public static String WorkUrl(int workId, bool series = false) {
 			if(series == true) {
 				return "https://archiveofourown.org/series/" + workId.ToString();
 			} else {

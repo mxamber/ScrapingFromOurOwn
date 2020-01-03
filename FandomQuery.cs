@@ -20,7 +20,7 @@ namespace ScrapingFromOurOwn
 			this.custom = custom;
 		}
 		
-		public bool beginQuery() {
+		public bool BeginQuery() {
 			Regex work_regex = new Regex(@"([\d]+)\sWorks(\sfound|)\sin");
 			Regex error_regex = new Regex("div[^\\>]*class=\"[\\w\\s]*errors");
 			
@@ -29,15 +29,15 @@ namespace ScrapingFromOurOwn
 			String url = "";
 			
 			if (this.minimum <0 && this.maximum > -1) {
-				url = UrlGenerator.searchUrlMax(this.maximum, this.tag, this.custom);
+				url = UrlGenerator.SearchUrlMax(this.maximum, this.tag, this.custom);
 			} else if (this.maximum < 0 && this.minimum > -1) {
-				url = UrlGenerator.searchUrlMin(this.minimum, this.tag, this.custom);
+				url = UrlGenerator.SearchUrlMin(this.minimum, this.tag, this.custom);
 			} else if (this.maximum > -1 && this.minimum > -1) {
-				url = UrlGenerator.searchUrlMinMax(this.minimum, this.maximum, this.tag, this.custom);
+				url = UrlGenerator.SearchUrlMinMax(this.minimum, this.maximum, this.tag, this.custom);
 			} else {
-				url = UrlGenerator.searchUrl(this.tag, this.custom);
+				url = UrlGenerator.SearchUrl(this.tag, this.custom);
 			}
-			String raw = Scraper.scrape(url);							// scrape search results page 
+			String raw = Scraper.Scrape(url);							// scrape search results page 
 			
 			if(String.IsNullOrEmpty(raw) != true) {
 				if(Int32.TryParse(work_regex.Match(raw).Groups[1].ToString().Trim(), out works) == false) {
