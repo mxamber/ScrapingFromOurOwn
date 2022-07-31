@@ -25,11 +25,14 @@ namespace ScrapingFromOurOwn
 		
 		public static Work BeginQuery(int id, bool entire_work = false) {
 			String url = UrlGenerator.WorkUrl(id);
+			
+			Console.WriteLine("Work URL: {0}", url);
+			
 			if(entire_work == true) {
 				url += "?view_full_work=true";
 			}
-			String raw = Scraper.Scrape(url);
 			
+			String raw = Scraper.Scrape(url);
 			
 			if(String.IsNullOrEmpty(raw) == true) {
 				throw new System.ArgumentException("Work could not be found!", id.ToString());
