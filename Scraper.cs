@@ -7,11 +7,6 @@ namespace ScrapingFromOurOwn
 	public static class Scraper
 	{		
 		public static String Scrape(String url) {
-			
-			/* fixes "could not create secure SSL/TLS channel" error
-			* Source 1: https://stackoverflow.com/questions/10822509/the-request-was-aborted-could-not-create-ssl-tls-secure-channel
-			* Source 2: https://www.codeproject.com/Questions/1255767/Could-not-create-SSL-TLS-secure-channel 
-			*/
 			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 			request.Method = "GET";
