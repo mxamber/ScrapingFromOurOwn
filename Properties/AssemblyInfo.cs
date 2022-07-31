@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("mxamber")]
 [assembly: AssemblyProduct ("ScrapingFromOurOwn")]
-[assembly: AssemblyCopyright ("Copyright 2019")]
+[assembly: AssemblyCopyright ("Copyright 2022")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 // This sets the default COM visibility of types in the assembly to invisible.
@@ -24,4 +24,4 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion ("0.4.3.*")]
+[assembly: AssemblyVersion ("0.4.4.*")]
